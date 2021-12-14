@@ -16,12 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = .vertical
-        let manyPicturesViewController = ManyPicturesViewController(collectionViewLayout: flowLayout)
-                                                                    
         window?.rootViewController = UINavigationController(
-            rootViewController: manyPicturesViewController
+            rootViewController: ManyPicturesViewController()
         )
         return true
     }

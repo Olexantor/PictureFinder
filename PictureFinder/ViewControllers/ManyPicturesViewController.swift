@@ -6,37 +6,45 @@
 //
 
 import UIKit
+import SnapKit
 
-class ManyPicturesViewController: UICollectionViewController {
+class ManyPicturesViewController: UIViewController {
     
     private let searchController = UISearchController(
         searchResultsController: nil
     )
     
-    let cellIdentifier = "Pictures cell"
-
+    private let collectionView = UICollectionView(
+        frame: .zero,
+        collectionViewLayout: UICollectionViewFlowLayout()
+    )
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
-//        collectionView.backgroundColor = UIColor(
-//            red: 102/255,
-//            green: 102/255,
-//            blue: 102/255,
-//            alpha: 1
-//        )
         setupCollectionView()
         setupNavigationBar()
         setupSearchController()
     }
     
     func setupCollectionView() {
+        
         collectionView.backgroundColor = UIColor(
             red: 102/255,
             green: 102/255,
             blue: 102/255,
             alpha: 1
         )
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellIdentifier)
+        collectionView.register(
+            ManyPicturesCell.self,
+            forCellWithReuseIdentifier: ManyPicturesCell.identifier
+        )
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        view.addSubview(collectionView)
+        collectionView.snp.makeConstraints { maker in
+            maker.edges.equalToSuperview()
+        }
     }
     
     private func setupNavigationBar() {
@@ -66,35 +74,33 @@ class ManyPicturesViewController: UICollectionViewController {
         definesPresentationContext = true
         searchController.searchBar.barTintColor = .white
     }
-    
-
 }
 
 //MARK: UICollectionViewDataSource
-extension ManyPicturesViewController {
-    override func collectionView(
+extension ManyPicturesViewController: UICollectionViewDataSource {
+    
+     func collectionView(
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
     ) -> Int {
-        10
+        9
     }
     
-    override func collectionView(
+     func collectionView(
         _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: cellIdentifier,
+            withReuseIdentifier: ManyPicturesCell.identifier,
             for: indexPath
-        )
+        ) as! ManyPicturesCell
+        cell.backgroundColor = .red
         return cell
     }
-    
-    
 }
 
-//MARK: UICollectionViewDelegate
-extension ManyPicturesViewController {
+//MARK: UICollectionViewDelegateFlowLayout
+extension ManyPicturesViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(
         _: UICollectionView,
@@ -103,7 +109,6 @@ extension ManyPicturesViewController {
     ) -> CGSize {
         return CGSize.init(width: view.frame.width, height: 250)
     }
-    
 }
 
 //MARK: - SearchBarDelegate

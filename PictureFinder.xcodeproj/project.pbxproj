@@ -12,6 +12,7 @@
 		1F3D9B0E2767A66900F971DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F3D9B0D2767A66900F971DB /* Assets.xcassets */; };
 		1F3D9B112767A66900F971DB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F3D9B0F2767A66900F971DB /* LaunchScreen.storyboard */; };
 		1F3D9B1A2767A78E00F971DB /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1F3D9B192767A78E00F971DB /* SnapKit */; };
+		1F8555C12768B4AE009EF44E /* ManyPicturesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8555C02768B4AE009EF44E /* ManyPicturesCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,7 @@
 		1F3D9B0D2767A66900F971DB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1F3D9B102767A66900F971DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1F3D9B122767A66900F971DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1F8555C02768B4AE009EF44E /* ManyPicturesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManyPicturesCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,13 +56,46 @@
 		1F3D9B032767A66500F971DB /* PictureFinder */ = {
 			isa = PBXGroup;
 			children = (
-				1F3D9B042767A66500F971DB /* AppDelegate.swift */,
-				1F3D9B082767A66500F971DB /* ManyPicturesViewController.swift */,
-				1F3D9B0D2767A66900F971DB /* Assets.xcassets */,
-				1F3D9B0F2767A66900F971DB /* LaunchScreen.storyboard */,
-				1F3D9B122767A66900F971DB /* Info.plist */,
+				1F8555C22768DE78009EF44E /* ViewControllers */,
+				1F8555C32768DEA1009EF44E /* Views */,
+				1F8555C52768DF80009EF44E /* Supporting files */,
+				1F8555C42768DF6F009EF44E /* Storyboards */,
 			);
 			path = PictureFinder;
+			sourceTree = "<group>";
+		};
+		1F8555C22768DE78009EF44E /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				1F3D9B082767A66500F971DB /* ManyPicturesViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		1F8555C32768DEA1009EF44E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1F8555C02768B4AE009EF44E /* ManyPicturesCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		1F8555C42768DF6F009EF44E /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				1F3D9B0F2767A66900F971DB /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		1F8555C52768DF80009EF44E /* Supporting files */ = {
+			isa = PBXGroup;
+			children = (
+				1F3D9B0D2767A66900F971DB /* Assets.xcassets */,
+				1F3D9B042767A66500F971DB /* AppDelegate.swift */,
+				1F3D9B122767A66900F971DB /* Info.plist */,
+			);
+			path = "Supporting files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,6 +174,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F8555C12768B4AE009EF44E /* ManyPicturesCell.swift in Sources */,
 				1F3D9B092767A66500F971DB /* ManyPicturesViewController.swift in Sources */,
 				1F3D9B052767A66500F971DB /* AppDelegate.swift in Sources */,
 			);
@@ -283,7 +319,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = JKCU96H3SQ;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = PictureFinder/Info.plist;
+				INFOPLIST_FILE = "PictureFinder/Supporting files/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -311,7 +347,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = JKCU96H3SQ;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = PictureFinder/Info.plist;
+				INFOPLIST_FILE = "PictureFinder/Supporting files/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
