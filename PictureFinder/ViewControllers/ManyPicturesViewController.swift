@@ -27,7 +27,7 @@ class ManyPicturesViewController: UIViewController {
     }
 
     func testMethod() {
-        NetworkManager.shared.fetchPicturesLinksWith(query: "яблоко_в_утке") { pictures in
+        NetworkManager.shared.fetchPicturesLinksWith(query: "apples and peaches") { pictures in
             print(pictures)
         }
     }
