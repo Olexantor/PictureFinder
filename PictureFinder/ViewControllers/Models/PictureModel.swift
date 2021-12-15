@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PictureModel {
+struct PictureModel: Decodable {
     let imagesResults: [ImagesResult]
 
     enum CodingKeys: String, CodingKey {
@@ -15,7 +15,7 @@ struct PictureModel {
     }
 }
 
-struct ImagesResult: Codable {
+struct ImagesResult: Decodable {
     let position: Int
     let original: String
 }

@@ -23,8 +23,15 @@ class ManyPicturesViewController: UIViewController {
         setupCollectionView()
         setupNavigationBar()
         setupSearchController()
+        testMethod()
     }
 
+    func testMethod() {
+        NetworkManager.shared.fetchPicturesLinksWith(query: "яблоко_в_утке") { pictures in
+            print(pictures)
+        }
+    }
+    
     func setupCollectionView() {
         collectionView.backgroundColor = UIColor(
             red: 102/255,
