@@ -8,6 +8,5 @@
 import UIKit
 
 class ManyPicturesCell: UICollectionViewCell {
-    
     static let identifier = "Pictures cell"
 }
