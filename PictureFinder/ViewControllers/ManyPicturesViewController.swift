@@ -5,30 +5,27 @@
 //  Created by Александр on 13.12.2021.
 //
 
-import UIKit
 import SnapKit
+import UIKit
 
 class ManyPicturesViewController: UIViewController {
-    
     private let searchController = UISearchController(
         searchResultsController: nil
     )
-    
+
     private let collectionView = UICollectionView(
         frame: .zero,
         collectionViewLayout: UICollectionViewFlowLayout()
     )
-    
+
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         setupCollectionView()
         setupNavigationBar()
         setupSearchController()
     }
-    
+
     func setupCollectionView() {
-        
         collectionView.backgroundColor = UIColor(
             red: 102/255,
             green: 102/255,
@@ -46,9 +43,8 @@ class ManyPicturesViewController: UIViewController {
             maker.edges.equalToSuperview()
         }
     }
-    
+
     private func setupNavigationBar() {
-        
         title = "Picture finder"
         navigationController?.navigationBar.prefersLargeTitles = true
         let navBarAppearance = UINavigationBarAppearance()
@@ -64,9 +60,8 @@ class ManyPicturesViewController: UIViewController {
         navigationController?.navigationBar.standardAppearance = navBarAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
     }
-    
+
     private func setupSearchController() {
-        
         searchController.searchBar.delegate = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search"
@@ -76,17 +71,17 @@ class ManyPicturesViewController: UIViewController {
     }
 }
 
-//MARK: UICollectionViewDataSource
+// MARK: UICollectionViewDataSource
+
 extension ManyPicturesViewController: UICollectionViewDataSource {
-    
-     func collectionView(
+    func collectionView(
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
     ) -> Int {
         9
     }
-    
-     func collectionView(
+
+    func collectionView(
         _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
@@ -99,19 +94,18 @@ extension ManyPicturesViewController: UICollectionViewDataSource {
     }
 }
 
-//MARK: UICollectionViewDelegateFlowLayout
+// MARK: UICollectionViewDelegateFlowLayout
+
 extension ManyPicturesViewController: UICollectionViewDelegateFlowLayout {
-    
     func collectionView(
         _: UICollectionView,
         layout: UICollectionViewLayout,
         sizeForItemAt: IndexPath
     ) -> CGSize {
-        return CGSize.init(width: view.frame.width, height: 250)
+        return CGSize(width: view.frame.width, height: 250)
     }
 }
 
-//MARK: - SearchBarDelegate
-extension ManyPicturesViewController: UISearchBarDelegate {
+// MARK: - SearchBarDelegate
 
-}
+extension ManyPicturesViewController: UISearchBarDelegate {}
