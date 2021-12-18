@@ -1,5 +1,5 @@
 //
-//  PictureModel.swift
+//  PicturesData.swift
 //  PictureFinder
 //
 //  Created by Александр on 15.12.2021.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PictureModel: Decodable {
+struct PicturesData: Decodable {
     let imagesResults: [ImagesResult]
 
     enum CodingKeys: String, CodingKey {
