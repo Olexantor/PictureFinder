@@ -12,20 +12,27 @@ class NetworkManager {
     static let shared = NetworkManager()
     func fetchPicturesLinksWith(
         query: String,
-        completion: @escaping (Result<PictureModel, Error>) -> Void
+        completion: @escaping (Pictures) -> Void,
+        failure: @escaping (Error) -> Void
     ) {
         let url = urlSerpapi + query + serpapiKey
         guard let supplementedUrl = url.addingPercentEncoding(
             withAllowedCharacters: .urlQueryAllowed
         ) else { return }
-        AF.request(supplementedUrl).validate().responseDecodable(
-            of: PictureModel.self
-        ) { response in
+        AF.request(supplementedUrl).validate().responseJSON { response in
             switch response.result {
-            case .success(let pictures):
-                completion(.success(pictures))
+            case .success:
+                do {
+                    guard let data = response.data else { return }
+                    let json = try JSONDecoder().decode(PictureModel.self, from: data)
+                    guard let pictures = Pictures(data: json) else { return }
+                    print(pictures.refsOnPictures)
+                    completion(pictures)
+                } catch {
+                    failure(error)
+                }
             case .failure(let error):
-                print(error)
+                failure(error)
             }
         }
     }

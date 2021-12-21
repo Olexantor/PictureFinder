@@ -17,6 +17,8 @@ class ManyPicturesViewController: UIViewController {
         frame: .zero,
         collectionViewLayout: UICollectionViewFlowLayout()
     )
+    
+    private var arrayOfPics = [String]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,10 +30,14 @@ class ManyPicturesViewController: UIViewController {
 
     func testMethod() {
         NetworkManager.shared.fetchPicturesLinksWith(
-            query: "рота американских солдат"
-        ) { pictures in
-            print(pictures)
-        }
+            query: "рота американских солдат",
+            completion: { [self] pictures in
+                self.arrayOfPics = pictures.refsOnPictures
+                print(arrayOfPics)
+            },
+            failure: { error in
+            print(error.localizedDescription)
+            })
     }
 
     func setupCollectionView() {
@@ -118,3 +124,20 @@ extension ManyPicturesViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - SearchBarDelegate
 
 extension ManyPicturesViewController: UISearchBarDelegate {}
+
+// MARK: - API Methods
+
+extension ManyPicturesViewController {
+    
+    func getPicturesWith(request: String) {
+        NetworkManager.shared.fetchPicturesLinksWith(
+            query: request,
+            completion: { [self] pictures in
+                self.arrayOfPics = pictures.refsOnPictures
+                print(arrayOfPics)
+            },
+            failure: { error in
+            print(error.localizedDescription)
+            })
+    }
+}
