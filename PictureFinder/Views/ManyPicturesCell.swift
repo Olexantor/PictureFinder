@@ -9,4 +9,18 @@ import UIKit
 
 class ManyPicturesCell: UICollectionViewCell {
     static let identifier = "Pictures cell"
+    private let cellImage: UIImageView = {
+        let view = UIImageView()
+        return view
+    }()
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        contentView.addSubview(cellImage)
+        cellImage.frame = contentView.bounds
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
