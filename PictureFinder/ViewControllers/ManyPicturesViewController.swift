@@ -18,27 +18,16 @@ class ManyPicturesViewController: UIViewController {
         collectionViewLayout: UICollectionViewFlowLayout()
     )
     
-    private var arrayOfPics = [String]()
+    private var picturesReferences = [String]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
         setupNavigationBar()
         setupSearchController()
-        testMethod()
+        
     }
 
-    func testMethod() {
-        NetworkManager.shared.fetchPicturesLinksWith(
-            query: "рота американских солдат",
-            completion: { [self] pictures in
-                self.arrayOfPics = pictures.refsOnPictures
-                print(arrayOfPics)
-            },
-            failure: { error in
-            print(error.localizedDescription)
-            })
-    }
 
     func setupCollectionView() {
         collectionView.backgroundColor = UIColor(
@@ -83,6 +72,15 @@ class ManyPicturesViewController: UIViewController {
         navigationItem.searchController = searchController
         definesPresentationContext = true
         searchController.searchBar.barTintColor = .white
+        searchController.searchBar.searchTextField.addTarget(
+            self,
+            action: #selector(searchButtonTapped),
+            for: UIControl.Event.primaryActionTriggered
+        )
+    }
+    
+    @objc private func searchButtonTapped(textField:UITextField) {
+        searchBarButtonClicked(searchController.searchBar)
     }
 }
 
@@ -93,7 +91,7 @@ extension ManyPicturesViewController: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
     ) -> Int {
-        9
+        picturesReferences.count
     }
 
     func collectionView(
@@ -123,7 +121,12 @@ extension ManyPicturesViewController: UICollectionViewDelegateFlowLayout {
 
 // MARK: - SearchBarDelegate
 
-extension ManyPicturesViewController: UISearchBarDelegate {}
+extension ManyPicturesViewController: UISearchBarDelegate {
+    func searchBarButtonClicked(_ searchBar: UISearchBar) {
+        guard let textField = searchBar.text, !textField.isEmpty else { return }
+        getPicturesWith(request: textField)
+    }
+}
 
 // MARK: - API Methods
 
@@ -132,12 +135,32 @@ extension ManyPicturesViewController {
     func getPicturesWith(request: String) {
         NetworkManager.shared.fetchPicturesLinksWith(
             query: request,
-            completion: { [self] pictures in
-                self.arrayOfPics = pictures.refsOnPictures
-                print(arrayOfPics)
+            completion: { [weak self] pictures in
+                guard let self = self else { return }
+                self.picturesReferences = pictures.refsOnPictures
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                }
             },
-            failure: { error in
-            print(error.localizedDescription)
+            failure: { [weak self] error in
+                guard let self = self else {return}
+                self.errorAlert(with: "\(error)")
             })
+    }
+}
+
+ // MARK: - Alerts
+
+extension ManyPicturesViewController {
+    
+    private func errorAlert(with message: String) {
+        let alert = UIAlertController(
+            title: "Error!",
+            message: message,
+            preferredStyle: .alert
+        )
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        alert.addAction(okAction)
+        present(alert, animated: true)
     }
 }
