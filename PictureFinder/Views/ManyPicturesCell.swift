@@ -9,15 +9,16 @@ import UIKit
 
 class ManyPicturesCell: UICollectionViewCell {
     static let identifier = "Pictures cell"
-    private let cellImage: UIImageView = {
+    let imageView: UIImageView = {
         let view = UIImageView()
+        view.backgroundColor = colorForCollectionView
         return view
     }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.addSubview(cellImage)
-        cellImage.frame = contentView.bounds
+        contentView.addSubview(imageView)
+        imageView.frame = contentView.bounds
     }
 
     required init?(coder: NSCoder) {

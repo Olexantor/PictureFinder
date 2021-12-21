@@ -12,6 +12,7 @@
 		1F3D9B0E2767A66900F971DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F3D9B0D2767A66900F971DB /* Assets.xcassets */; };
 		1F3D9B112767A66900F971DB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F3D9B0F2767A66900F971DB /* LaunchScreen.storyboard */; };
 		1F3D9B1A2767A78E00F971DB /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1F3D9B192767A78E00F971DB /* SnapKit */; };
+		1F693DA727725C2800D09311 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 1F693DA627725C2800D09311 /* Nuke */; };
 		1F8555C12768B4AE009EF44E /* ManyPicturesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8555C02768B4AE009EF44E /* ManyPicturesCell.swift */; };
 		1FA3AFE8277097050005B6B5 /* Pictures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA3AFE7277097050005B6B5 /* Pictures.swift */; };
 		1FAA57A1276A14EB00A1380F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAA57A0276A14EB00A1380F /* NetworkManager.swift */; };
@@ -39,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F693DA727725C2800D09311 /* Nuke in Frameworks */,
 				1F3D9B1A2767A78E00F971DB /* SnapKit in Frameworks */,
 				1FAA57A5276A15D900A1380F /* Alamofire in Frameworks */,
 			);
@@ -147,6 +149,7 @@
 			packageProductDependencies = (
 				1F3D9B192767A78E00F971DB /* SnapKit */,
 				1FAA57A4276A15D900A1380F /* Alamofire */,
+				1F693DA627725C2800D09311 /* Nuke */,
 			);
 			productName = PictureFinder;
 			productReference = 1F3D9B012767A66500F971DB /* PictureFinder.app */;
@@ -179,6 +182,7 @@
 			packageReferences = (
 				1F3D9B182767A78E00F971DB /* XCRemoteSwiftPackageReference "SnapKit" */,
 				1FAA57A3276A15D900A1380F /* XCRemoteSwiftPackageReference "Alamofire" */,
+				1F693DA527725C2800D09311 /* XCRemoteSwiftPackageReference "Nuke" */,
 			);
 			productRefGroup = 1F3D9B022767A66500F971DB /* Products */;
 			projectDirPath = "";
@@ -434,6 +438,14 @@
 				kind = branch;
 			};
 		};
+		1F693DA527725C2800D09311 /* XCRemoteSwiftPackageReference "Nuke" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kean/Nuke";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		1FAA57A3276A15D900A1380F /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire";
@@ -449,6 +461,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1F3D9B182767A78E00F971DB /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		1F693DA627725C2800D09311 /* Nuke */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1F693DA527725C2800D09311 /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = Nuke;
 		};
 		1FAA57A4276A15D900A1380F /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;

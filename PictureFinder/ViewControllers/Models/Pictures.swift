@@ -4,13 +4,15 @@
 //
 //  Created by Александр on 20.12.2021.
 //
+import UIKit
 
 struct Pictures {
-    var refsOnPictures = [String]()
+    var refsOnPictures = [URL]()
     
     init?(data: PictureModel) {
         data.imagesResults.forEach { image in
-            refsOnPictures.append(image.original)
+            guard let url = URL(string: image.original) else { return }
+            refsOnPictures.append(url)
         }
     }
 }
