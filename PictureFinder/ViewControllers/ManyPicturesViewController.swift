@@ -231,6 +231,7 @@ extension ManyPicturesViewController {
     }
 }
 
+
 // MARK: - Alerts
 
 extension ManyPicturesViewController {
