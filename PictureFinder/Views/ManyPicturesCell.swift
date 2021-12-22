@@ -8,10 +8,12 @@
 import UIKit
 
 class ManyPicturesCell: UICollectionViewCell {
+    
     static let identifier = "Pictures cell"
+   
     let imageView: UIImageView = {
         let view = UIImageView()
-        view.backgroundColor = colorForCollectionView
+        view.backgroundColor = mainColor
         return view
     }()
 

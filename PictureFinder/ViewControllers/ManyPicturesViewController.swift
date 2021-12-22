@@ -30,16 +30,12 @@ class ManyPicturesViewController: UIViewController {
         collectionViewLayout: UICollectionViewFlowLayout()
     )
     
-    private let colorOfSystemPics = UIImage.SymbolConfiguration(hierarchicalColor: .black)
-    
     private let itemsPerRow: CGFloat = 3
     private let sectionInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     private var paddingWidth: CGFloat { sectionInsets.left * (itemsPerRow + 1)
     }
-    
     private var availableWidth: CGFloat { collectionView.frame.width - paddingWidth
     }
-    
     private var widthOfItem: CGFloat { availableWidth / itemsPerRow
     }
     
@@ -89,7 +85,7 @@ class ManyPicturesViewController: UIViewController {
         navBarAppearance.configureWithOpaqueBackground()
         navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
         navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-        navBarAppearance.backgroundColor = colorForNavBar
+        navBarAppearance.backgroundColor = secondaryColor
         navigationController?.navigationBar.standardAppearance = navBarAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
     }
@@ -113,7 +109,7 @@ class ManyPicturesViewController: UIViewController {
     }
     
     private func setupCollectionView() {
-        collectionView.backgroundColor = colorForCollectionView
+        collectionView.backgroundColor = mainColor
         collectionView.register(
             ManyPicturesCell.self,
             forCellWithReuseIdentifier: ManyPicturesCell.identifier
