@@ -190,6 +190,13 @@ extension ManyPicturesViewController: UICollectionViewDelegateFlowLayout {
 
 // MARK: - UICollectionViewDelegate Methods
 
+extension ManyPicturesViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let detailedVC = LargePictureViewController(urlsOfPictures: picturesReferences, currentIndex: indexPath.item)
+        present(detailedVC, animated: true)
+    }
+}
+
 // MARK: - SearchBarDelegate
 
 extension ManyPicturesViewController: UISearchBarDelegate {
