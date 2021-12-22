@@ -26,7 +26,6 @@ class NetworkManager {
                     guard let data = response.data else { return }
                     let json = try JSONDecoder().decode(PictureModel.self, from: data)
                     guard let pictures = Pictures(data: json) else { return }
-                    print(pictures.refsOnPictures)
                     completion(pictures)
                 } catch {
                     failure(error)

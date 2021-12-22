@@ -8,9 +8,19 @@
 import Nuke
 import SnapKit
 import UIKit
-import SwiftUI
 
 class ManyPicturesViewController: UIViewController {
+    
+    private let activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView()
+        indicator.color = .red
+        indicator.hidesWhenStopped = true
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        let transfrom = CGAffineTransform.init(scaleX: 3, y: 3)
+        indicator.transform = transfrom
+        return indicator
+    }()
+    
     private let searchController = UISearchController(
         searchResultsController: nil
     )
@@ -42,6 +52,7 @@ class ManyPicturesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupActivityIndicator()
         setupNavigationBar()
         setupSearchController()
         setupCollectionView()
@@ -61,6 +72,14 @@ class ManyPicturesViewController: UIViewController {
             withConfiguration: colorOfSystemPics
         )
         ImageLoadingOptions.shared.transition = .fadeIn(duration: 0.5)
+    }
+    
+    private func setupActivityIndicator() {
+        collectionView.addSubview(activityIndicator)
+        activityIndicator.snp.makeConstraints { maker in
+            maker.centerX.equalToSuperview()
+            maker.centerY.equalToSuperview()
+        }
     }
     
     private func setupNavigationBar() {
@@ -108,7 +127,7 @@ class ManyPicturesViewController: UIViewController {
     }
 }
 
-// MARK: UICollectionViewDataSource Methods
+// MARK: - UICollectionViewDataSource Methods
 
 extension ManyPicturesViewController: UICollectionViewDataSource {
     func collectionView(
@@ -138,7 +157,7 @@ extension ManyPicturesViewController: UICollectionViewDataSource {
     }
 }
 
-// MARK: UICollectionViewDelegateFlowLayout Methods
+// MARK: - UICollectionViewDelegateFlowLayout Methods
 
 extension ManyPicturesViewController: UICollectionViewDelegateFlowLayout {
    func collectionView(
@@ -173,12 +192,13 @@ extension ManyPicturesViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-// MARK: UICollectionViewDelegate Methods
+// MARK: - UICollectionViewDelegate Methods
 
 // MARK: - SearchBarDelegate
 
 extension ManyPicturesViewController: UISearchBarDelegate {
     private func searchBarButtonClicked(_ searchBar: UISearchBar) {
+        activityIndicator.startAnimating()
         guard let textField = searchBar.text, !textField.isEmpty else { return }
         getPicturesWith(request: textField)
     }
@@ -187,19 +207,22 @@ extension ManyPicturesViewController: UISearchBarDelegate {
 // MARK: - API Methods
 
 extension ManyPicturesViewController {
-   private func getPicturesWith(request: String) {
+    private func getPicturesWith(request: String) {
         NetworkManager.shared.fetchPicturesLinksWith(
             query: request,
             completion: { [weak self] pictures in
                 guard let self = self else { return }
                 self.picturesReferences = pictures.refsOnPictures
                 DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
                     self.collectionView.reloadData()
                 }
             },
             failure: { [weak self] error in
                 guard let self = self else { return }
-                self.errorAlert(with: "\(error)")
+                DispatchQueue.main.async {
+                    self.errorAlert(with: "\(error)")
+                }
             }
         )
     }
