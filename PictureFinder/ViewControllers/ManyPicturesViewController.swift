@@ -16,7 +16,7 @@ class ManyPicturesViewController: UIViewController {
         indicator.color = .red
         indicator.hidesWhenStopped = true
         indicator.translatesAutoresizingMaskIntoConstraints = false
-        let transfrom = CGAffineTransform.init(scaleX: 3, y: 3)
+        let transfrom = CGAffineTransform.init(scaleX: 5, y: 5)
         indicator.transform = transfrom
         return indicator
     }()
@@ -56,10 +56,10 @@ class ManyPicturesViewController: UIViewController {
     }
     
     private func setupActivityIndicator() {
-        collectionView.addSubview(activityIndicator)
+        navigationController?.view.addSubview(activityIndicator)
         activityIndicator.snp.makeConstraints { maker in
-            maker.centerX.equalToSuperview()
             maker.centerY.equalToSuperview()
+            maker.centerX.equalToSuperview()
         }
     }
     
