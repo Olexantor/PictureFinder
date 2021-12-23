@@ -12,23 +12,23 @@ import UIKit
 class LargePictureViewController: UIViewController {
    
     private let urlsOfPictures: [URL]
-    
     private var currentIndex: Int
-    
-//    private var availableIndex {
-//    }
     
     private var largePictureImageView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
-    }() {
-        didSet {}
-    }
+    }()
     
     private var resizedImageProcessors: [ImageProcessing] {
-        let imageSize = CGSize(width: view.frame.width, height: view.frame.width)
-        return [ImageProcessors.Resize(size: imageSize, contentMode: .aspectFit)]
+        let imageSize = CGSize(
+            width: view.frame.width,
+            height: view.frame.width
+        )
+        return [ImageProcessors.Resize(
+            size: imageSize,
+            contentMode: .aspectFit
+        )]
     }
     
     private let sourceButton: UIButton = {
@@ -37,7 +37,11 @@ class LargePictureViewController: UIViewController {
         button.tintColor = .white
         button.layer.cornerRadius = 10
         button.setTitle("Open source file", for: .normal)
-        button.addTarget(self, action: #selector(sourceButtonAction), for: .touchUpInside)
+        button.addTarget(
+            self,
+            action: #selector(sourceButtonAction),
+            for: .touchUpInside
+        )
         return button
     }()
     
@@ -47,7 +51,11 @@ class LargePictureViewController: UIViewController {
         button.tintColor = .white
         button.layer.cornerRadius = 10
         button.setTitle("Next ->", for: .normal)
-        button.addTarget(self, action: #selector(nextButtonAction), for: .touchUpInside)
+        button.addTarget(
+            self,
+            action: #selector(nextButtonAction),
+            for: .touchUpInside
+        )
         return button
     }()
     
@@ -56,8 +64,12 @@ class LargePictureViewController: UIViewController {
         button.backgroundColor = secondaryColor
         button.tintColor = .white
         button.layer.cornerRadius = 10
-        button.setTitle("<- Previous", for: .normal)
-        button.addTarget(self, action: #selector(previousButtonAction), for: .touchUpInside)
+        button.setTitle("<- Prev", for: .normal)
+        button.addTarget(
+            self,
+            action: #selector(previousButtonAction),
+            for: .touchUpInside
+        )
         return button
     }()
     
@@ -128,6 +140,10 @@ class LargePictureViewController: UIViewController {
             maker.bottom.equalToSuperview().inset(20)
         }
     }
+}
+ // MARK: - Nuke presets
+
+extension LargePictureViewController {
     
     private func nukeLoadingOptions() {
         let contentModes = ImageLoadingOptions.ContentModes(

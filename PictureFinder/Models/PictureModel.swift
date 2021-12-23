@@ -6,6 +6,7 @@
 //
 
 struct PictureModel: Decodable {
+    
     let imagesResults: [ImagesResult]
 
     enum CodingKeys: String, CodingKey {

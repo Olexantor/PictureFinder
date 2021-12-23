@@ -31,17 +31,17 @@ class ManyPicturesViewController: UIViewController {
     )
     
     private let itemsPerRow: CGFloat = 3
-    private let sectionInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+    private let sectionInsets = UIEdgeInsets(
+        top: 10,
+        left: 10,
+        bottom: 10,
+        right: 10
+    )
     private var paddingWidth: CGFloat { sectionInsets.left * (itemsPerRow + 1)
     }
     private var availableWidth: CGFloat { collectionView.frame.width - paddingWidth
     }
     private var widthOfItem: CGFloat { availableWidth / itemsPerRow
-    }
-    
-    private var resizedImageProcessors: [ImageProcessing] {
-        let imageSize = CGSize(width: widthOfItem, height: widthOfItem)
-        return [ImageProcessors.Resize(size: imageSize, contentMode: .aspectFit)]
     }
     
     private var picturesReferences = [URL]()
@@ -52,22 +52,7 @@ class ManyPicturesViewController: UIViewController {
         setupNavigationBar()
         setupSearchController()
         setupCollectionView()
-        let contentModes = ImageLoadingOptions.ContentModes(
-            success: .scaleAspectFit,
-            failure: .scaleAspectFit,
-            placeholder: .scaleAspectFit
-        )
-        
-        ImageLoadingOptions.shared.contentModes = contentModes
-        ImageLoadingOptions.shared.placeholder = UIImage(
-            systemName: "timer",
-            withConfiguration: colorOfSystemPics
-        )
-        ImageLoadingOptions.shared.failureImage = UIImage(
-            systemName: "clear",
-            withConfiguration: colorOfSystemPics
-        )
-        ImageLoadingOptions.shared.transition = .fadeIn(duration: 0.5)
+        nukeLoadingOptions()
     }
     
     private func setupActivityIndicator() {
@@ -144,6 +129,10 @@ extension ManyPicturesViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         let url = picturesReferences[indexPath.item]
+        var resizedImageProcessors: [ImageProcessing] {
+            let imageSize = CGSize(width: widthOfItem, height: widthOfItem)
+            return [ImageProcessors.Resize(size: imageSize, contentMode: .aspectFit)]
+        }
         let request = ImageRequest(
             url: url,
             processors: resizedImageProcessors
@@ -167,7 +156,11 @@ extension ManyPicturesViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: widthOfItem, height: widthOfItem)
     }
     
-   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+   func collectionView(
+    _ collectionView: UICollectionView,
+    layout collectionViewLayout: UICollectionViewLayout,
+    insetForSectionAt section: Int
+   ) -> UIEdgeInsets {
         return sectionInsets
     }
     
@@ -191,8 +184,14 @@ extension ManyPicturesViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - UICollectionViewDelegate Methods
 
 extension ManyPicturesViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let detailedVC = LargePictureViewController(urlsOfPictures: picturesReferences, currentIndex: indexPath.item)
+    func collectionView(
+        _ collectionView: UICollectionView,
+        didSelectItemAt indexPath: IndexPath
+    ) {
+        let detailedVC = LargePictureViewController(
+            urlsOfPictures: picturesReferences,
+            currentIndex: indexPath.item
+        )
         present(detailedVC, animated: true)
     }
 }
@@ -245,4 +244,28 @@ extension ManyPicturesViewController {
         alert.addAction(okAction)
         present(alert, animated: true)
     }
+}
+
+// MARK: - Nuke presets
+
+extension ManyPicturesViewController {
+   
+   private func nukeLoadingOptions() {
+       let contentModes = ImageLoadingOptions.ContentModes(
+           success: .scaleAspectFit,
+           failure: .scaleAspectFit,
+           placeholder: .scaleAspectFit
+       )
+       
+       ImageLoadingOptions.shared.contentModes = contentModes
+       ImageLoadingOptions.shared.placeholder = UIImage(
+           systemName: "timer",
+           withConfiguration: colorOfSystemPics
+       )
+       ImageLoadingOptions.shared.failureImage = UIImage(
+           systemName: "clear",
+           withConfiguration: colorOfSystemPics
+       )
+       ImageLoadingOptions.shared.transition = .fadeIn(duration: 0.5)
+   }
 }
