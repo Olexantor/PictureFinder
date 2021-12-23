@@ -9,7 +9,9 @@ import Alamofire
 import Foundation
 
 class NetworkManager {
+    
     static let shared = NetworkManager()
+    
     func fetchPicturesLinksWith(
         query: String,
         completion: @escaping (Pictures) -> Void,

@@ -7,6 +7,7 @@
 import UIKit
 
 struct Pictures {
+    
     var refsOnPictures = [URL]()
     
     init?(data: PictureModel) {
