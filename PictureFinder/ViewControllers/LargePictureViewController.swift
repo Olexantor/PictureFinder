@@ -81,7 +81,8 @@ class LargePictureViewController: UIViewController {
     }
     
     @objc func sourceButtonAction(sender: UIButton!) {
-        print("Source button tapped")
+        let webVC = WebViewController(pictureUrl: urlsOfPictures[currentIndex])
+        present(webVC, animated: true)
     }
     
     @objc func nextButtonAction(sender: UIButton!) {
